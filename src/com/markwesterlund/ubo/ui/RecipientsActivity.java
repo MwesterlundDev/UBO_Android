@@ -60,7 +60,7 @@ public class RecipientsActivity extends Activity {
 		mGridView.setOnItemClickListener(mOnItemClickListener);
 		
 		mMediaUri = getIntent().getData();
-		mFileType = getIntent().getExtras().getString(ParseConstants.KEY_FILE_TYPE);
+		//mFileType = getIntent().getExtras().getString(ParseConstants.KEY_FILE_TYPE);
 		
 		TextView emptyTextView = (TextView)findViewById(android.R.id.empty);
 		mGridView.setEmptyView(emptyTextView);
@@ -68,7 +68,7 @@ public class RecipientsActivity extends Activity {
 
 	@Override
 	public void onResume() {
-		
+		//
 		super.onResume();
 		
 		mCurrentUser = ParseUser.getCurrentUser();
@@ -167,8 +167,8 @@ public class RecipientsActivity extends Activity {
 		ParseObject message = new ParseObject(ParseConstants.CLASS_MESSAGES);
 		message.put(ParseConstants.KEY_SENDER_ID, ParseUser.getCurrentUser().getObjectId());
 		message.put(ParseConstants.KEY_SENDER_NAME, ParseUser.getCurrentUser().getUsername());
-		message.put(ParseConstants.KEY_RECICPIENT_IDS, getRecipientIds() );
-		message.put(ParseConstants.KEY_FILE_TYPE, mFileType);
+		//message.put(ParseConstants.KEY_RECICPIENT_IDS, getRecipientIds() );
+		//message.put(ParseConstants.KEY_FILE_TYPE, mFileType);
 		
 		byte[] fileBytes = FileHelper.getByteArrayFromFile(this, mMediaUri);
 		
@@ -182,7 +182,7 @@ public class RecipientsActivity extends Activity {
 			
 			String fileName = FileHelper.getFileName(this, mMediaUri, mFileType);
 			ParseFile file = new ParseFile(fileName, fileBytes);
-			message.put(ParseConstants.KEY_FILE, file);
+		//	message.put(ParseConstants.KEY_FILE, file);
 			return message;
 		}
 		

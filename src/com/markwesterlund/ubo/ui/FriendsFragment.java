@@ -3,13 +3,17 @@ package com.markwesterlund.ubo.ui;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.markwesterlund.ubo.R;
 import com.markwesterlund.ubo.adapters.UserAdapter;
@@ -38,6 +42,8 @@ public class FriendsFragment extends android.app.Fragment {
 		mGridView = (GridView)rootView.findViewById(R.id.friendsGrid);
 		TextView emptyTextView = (TextView)rootView.findViewById(android.R.id.empty);
 		mGridView.setEmptyView(emptyTextView);
+		mGridView.setOnItemClickListener(mOnItemClickListener);
+		
 		
 		return rootView;
 	}
@@ -98,6 +104,23 @@ public class FriendsFragment extends android.app.Fragment {
 		
 		
 	}
+	
+	protected OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			
+			ParseUser friend = mFriends.get(position);
+			
+			Intent intent = new Intent(getActivity(), MessageActivity.class);
+			intent.putExtra(ParseConstants.KEY_USERNAMES, friend.getUsername());
+			startActivity(intent);
+			
+			
+		}
+		
+	};
 	
 	
 }

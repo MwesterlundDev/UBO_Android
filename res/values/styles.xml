@@ -44,7 +44,7 @@
     <style name="Theme.Ribbit.LightPurpleBackground.GridView">
         <item name="android:background">@color/light_purple_background</item>
         <item name="android:divider">@null</item>
-"</style>
+    </style>
 
     <style name="Theme.Ribbit.Overflow" parent="@android:style/Widget.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_menu_overflow</item>
