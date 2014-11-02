@@ -1,21 +1,20 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.markwesterlund.ribbit.MainActivity$PlaceholderFragment" >
+    tools:context="com.markwesterlund.ribbit.MainActivity$PlaceholderFragment"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:orientation="vertical" >
+    
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+           
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true" 
+            android:layout_height="0dip" 
+     		android:layout_weight="1"
             >
 
             <ListView
@@ -28,7 +27,6 @@
                 android:paddingBottom="@dimen/inbox_vertical_margin" >
             </ListView>
         </android.support.v4.widget.SwipeRefreshLayout>
-    </LinearLayout>
 
     <TextView
         android:id="@android:id/empty"
@@ -42,7 +40,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:orientation="horizontal"
-        android:background="@color/white_background" >
+        android:background="@color/white_background" 
+        android:layout_weight="0">
 
         <TextView
             android:id="@+id/charCount"
@@ -67,4 +66,4 @@
             android:text="@string/send_message" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

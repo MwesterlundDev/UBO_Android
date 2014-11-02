@@ -127,6 +127,7 @@ public class MessageActivity extends Activity {
 				dialog.show();
 			} else {
 				send(message);
+				retrieveMessages();
 				//finish();
 			}
 			
@@ -267,9 +268,11 @@ public class MessageActivity extends Activity {
 					
 					String[] usernames = new String[mMessages.size()];
 					
-					int i = 0;
 					
-					for(ParseObject message : mMessages){
+					ParseObject message;
+					
+					for( int i = mMessages.size() - 1;  i <= 0;  i --){
+						message = mMessages.get(i);
 						usernames[i] = message.getString(ParseConstants.KEY_SENDER_NAME);
 						i++;
 					

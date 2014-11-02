@@ -150,6 +150,7 @@ public class InboxFragment extends android.app.ListFragment {
 				dialog.show();
 			} else {
 				send(message);
+				//retrieveMessages();
 				//finish();
 			}
 			

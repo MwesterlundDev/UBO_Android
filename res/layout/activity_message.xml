@@ -1,49 +1,57 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.markwesterlund.ubo.ui.MessageActivity" >
 
-    
-<LinearLayout
+   
+       <!--   <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:orientation="vertical" >
+        android:orientation="vertical" > -->
+   
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dip" 
+     	android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+        <ListView
+            android:id="@+id/messageList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" 
-            >
+            android:layout_alignParentTop="true"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/inbox_vertical_margin"
+            android:stackFromBottom="true" >
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    
+   <!-- </LinearLayout>
 
-            <ListView
-                android:id="@+id/messageList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:clipToPadding="false"
-                android:paddingBottom="@dimen/inbox_vertical_margin" >
-            </ListView>
-        </android.support.v4.widget.SwipeRefreshLayout>
-    </LinearLayout>
-
-    <!--<TextView
+  <TextView
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/empty_inbox_label" /> -->
+        android:text="@string/empty_inbox_label" />
+    -->
+    <!-- android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" -->
 
-    <LinearLayout
+ <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        
+        android:background="@color/white_background"
+		android:gravity="bottom"
         android:orientation="horizontal"
-        android:background="@color/white_background" >
+        android:layout_weight="0" > 
 
         <TextView
             android:id="@+id/charCount"
@@ -67,4 +75,5 @@
             android:layout_height="wrap_content"
             android:text="@string/send_message" />
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>
