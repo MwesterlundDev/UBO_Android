@@ -200,6 +200,8 @@ public class InboxFragment extends android.app.ListFragment {
 		
 		String messageText = mMessageText.getText().toString();
 		
+		
+		
 		if(messageText.length() == 0){
 			return null;
 		}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="UboTheme" parent="@style/_UboTheme"/>
+
+  <style name="_UboTheme" parent="android:Theme.Holo.Light">
+
+    <item name="android:editTextBackground">@drawable/ubotheme_edit_text_holo_light</item>
+
+    <item name="android:textColorHighlight">#992735a0</item>
+    <item name="android:textSelectHandleLeft">@drawable/ubotheme_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/ubotheme_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/ubotheme_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewUboTheme</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/ubotheme_btn_check_holo_light</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/ubotheme_btn_radio_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonUboTheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonUboTheme</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerUboTheme</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarUboTheme</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleUboTheme</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/ubotheme_list_selector_holo_light</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/ubotheme_activated_background_holo_light</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/ubotheme_fastscroll_thumb_holo</item>
+
+  </style>
+
+</resources>

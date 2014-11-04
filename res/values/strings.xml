@@ -58,10 +58,11 @@
     <string name="content_desc_message_icon">Message Icon</string>
     <string name="content_desc_user_avatar">User Avitar</string>
     <string name="content_desc_user_checkmark">User Checkmark</string>
-    <string name="push_message">You have a new Ribbet Message from %s</string>
+    <string name="push_message">You have a new Message from %s</string>
     <string name="title_activity_message">MessageActivity</string>
     <string name="message_hint">Message</string>
     <string name="send_message">Send</string>
     <string name="message_count">140</string>
+    <string name="push_type_direct">Direct</string>
 
 </resources>

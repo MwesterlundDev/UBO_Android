@@ -11,6 +11,7 @@ public final class ParseConstants {
 	public static final String KEY_FRIENDS_RELATION = "freindsRelation";
 	public static final String KEY_USER_ID = "userId";
 	public static final String KEY_RECICPIENT_NAME = "recipientName";
+	public static final String KEY_RECICPIENT_ID = "recipientID";
 	public static final String KEY_SENDER_ID = "senderId";
 	public static final String KEY_SENDER_NAME = "senderName";
 	public static final String KEY_CREATED_AT = "createdAt";

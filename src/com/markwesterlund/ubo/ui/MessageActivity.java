@@ -3,6 +3,9 @@ package com.markwesterlund.ubo.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -11,6 +14,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +30,9 @@ import com.markwesterlund.ubo.adapters.MessageAdapter;
 import com.markwesterlund.ubo.utils.ParseConstants;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -44,7 +50,7 @@ public class MessageActivity extends Activity {
 	protected TextView mCharCount;
 	protected ListView mListView;
 	protected String toUser;
-	
+	protected String toUserId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,9 @@ public class MessageActivity extends Activity {
 		Intent intent = getIntent();
 		
 		toUser = intent.getStringExtra(ParseConstants.KEY_USERNAMES);
+		toUserId = intent.getStringExtra(ParseConstants.KEY_USER_ID);
+		
+		Log.d(TAG,"toUserId: " + toUserId);
 		
 		mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
@@ -175,6 +184,7 @@ public class MessageActivity extends Activity {
 		message.put(ParseConstants.KEY_SENDER_ID, ParseUser.getCurrentUser().getObjectId());
 		message.put(ParseConstants.KEY_SENDER_NAME, ParseUser.getCurrentUser().getUsername());
 		message.put(ParseConstants.KEY_RECICPIENT_NAME, toUser );
+		message.put(ParseConstants.KEY_RECICPIENT_ID, toUserId);
 		
 		
 		String messageText = mMessageText.getText().toString();
@@ -208,7 +218,7 @@ public class MessageActivity extends Activity {
 					mCharCount.setText("140");
 					//InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 					//inputManager.hideSoftInputFromInputMethod((IBinder) getWindow(), InputMethodManager.HIDE_NOT_ALWAYS);
-					//sendPushNotifications();
+					sendPushNotifications();
 					
 				} else {
 					// error
@@ -236,12 +246,12 @@ public class MessageActivity extends Activity {
 	
 	private void retrieveMessages() {
 		ParseQuery<ParseObject> queryMe = new ParseQuery<ParseObject>(ParseConstants.CLASS_MESSAGES);
-		queryMe.whereEqualTo(ParseConstants.KEY_RECICPIENT_NAME, ParseUser.getCurrentUser().getUsername());
-		queryMe.whereEqualTo(ParseConstants.KEY_SENDER_NAME, toUser);
+		queryMe.whereEqualTo(ParseConstants.KEY_RECICPIENT_ID, ParseUser.getCurrentUser().getObjectId());
+		queryMe.whereEqualTo(ParseConstants.KEY_SENDER_ID, toUserId);
 		
 		ParseQuery<ParseObject> queryYou = new ParseQuery<ParseObject>(ParseConstants.CLASS_MESSAGES);
-		queryYou.whereEqualTo(ParseConstants.KEY_SENDER_NAME, ParseUser.getCurrentUser().getUsername());
-		queryYou.whereEqualTo(ParseConstants.KEY_RECICPIENT_NAME, toUser);
+		queryYou.whereEqualTo(ParseConstants.KEY_SENDER_ID, ParseUser.getCurrentUser().getObjectId());
+		queryYou.whereEqualTo(ParseConstants.KEY_RECICPIENT_ID, toUserId);
 		
 		
 		List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
@@ -271,25 +281,52 @@ public class MessageActivity extends Activity {
 					
 					ParseObject message;
 					
-					for( int i = mMessages.size() - 1;  i <= 0;  i --){
-						message = mMessages.get(i);
-						usernames[i] = message.getString(ParseConstants.KEY_SENDER_NAME);
-						i++;
+					if(mMessages.size() - 1 > 0){
 					
-					}
-					if( mListView.getAdapter() == null ) {
-						MessageAdapter adapter = new MessageAdapter(
-								mListView.getContext(),
-								mMessages);
-						mListView.setAdapter(adapter);
-					} else {
-						// refill the adapter!
+						for( int i = mMessages.size() - 1;  i <= 0;  i --){
+							message = mMessages.get(i);
+							usernames[i] = message.getString(ParseConstants.KEY_SENDER_NAME);
+							i++;
 						
-						((MessageAdapter)mListView.getAdapter()).refill(mMessages);
+						}
+						if( mListView.getAdapter() == null ) {
+							MessageAdapter adapter = new MessageAdapter(
+									mListView.getContext(),
+									mMessages);
+							mListView.setAdapter(adapter);
+						} else {
+							// refill the adapter!
+							
+							((MessageAdapter)mListView.getAdapter()).refill(mMessages);
+						}
 					}
 				}
 				
 			}
 		});
 	}
+	
+	protected void sendPushNotifications(){
+		ParseQuery<ParseInstallation> query = ParseInstallation.getQuery();
+		query.whereContains(ParseConstants.KEY_USER_ID, toUserId);
+		
+		JSONObject data = null;
+		
+		try {
+			 data = new JSONObject("{\"alert\": \""+ 
+			 		getString(R.string.push_message, ParseUser.getCurrentUser().getUsername()) + "\",\"type\": \""+ 
+					getString(R.string.push_type_direct) + "\" , \"userId\" : \"" + ParseUser.getCurrentUser().getObjectId() + 
+					"\", \"user\" : \"" + ParseUser.getCurrentUser().getUsername() + "\"}");
+			
+		} catch (JSONException e) {
+			
+			e.printStackTrace();
+		}
+		
+		//send push 
+		ParsePush push = new ParsePush();
+		push.setQuery(query);
+		push.setData(data);
+		push.sendInBackground();
+	} 
 }

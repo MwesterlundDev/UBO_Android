@@ -80,7 +80,7 @@ public class LoginActivity extends Activity {
 							setProgressBarIndeterminateVisibility(false);
 							if(e == null){
 								//Success!
-								UboApplication.updateParseInstallation(user);
+								//UboApplication.updateParseInstallation(user);
 								
 								Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 								intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

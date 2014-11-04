@@ -115,6 +115,7 @@ public class FriendsFragment extends android.app.Fragment {
 			
 			Intent intent = new Intent(getActivity(), MessageActivity.class);
 			intent.putExtra(ParseConstants.KEY_USERNAMES, friend.getUsername());
+			intent.putExtra(ParseConstants.KEY_USER_ID, friend.getObjectId());
 			startActivity(intent);
 			
 			
